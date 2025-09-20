@@ -5,11 +5,8 @@
 
 import React, { memo, useState, useCallback } from 'react';
 import { StyleSheet, RefreshControl, FlatList } from 'react-native';
-import { Block } from '@/components/atoms/Block';
-import { Header } from '@/components/organisms/Header';
-import { SearchBar } from '@/components/molecules/SearchBar';
-import { TabBar, ITabItem } from '@/components/organisms/TabBar';
-import { Body } from '@/components/atoms/Typography/presets';
+
+import { Block, Header, SearchBar, TabBar, Body, ITabItem } from '@/components';
 
 export interface IListTemplateProps<T> {
   headerTitle?: string;

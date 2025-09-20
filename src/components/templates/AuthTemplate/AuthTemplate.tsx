@@ -11,8 +11,8 @@ import {
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Block } from '@/components/atoms/Block';
-import { Header } from '@/components/organisms/Header';
+
+import { Block, Header } from '@/components';
 
 export interface IAuthTemplateProps {
   children: React.ReactNode;

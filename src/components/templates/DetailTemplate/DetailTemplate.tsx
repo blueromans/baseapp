@@ -12,9 +12,8 @@ import {
   Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Block } from '@/components/atoms/Block';
-import { Header } from '@/components/organisms/Header';
-import { H2, Body, ButtonText } from '@/components/atoms/Typography/presets';
+
+import { Block, Header, H2, Body, ButtonText } from '@/components';
 
 const { width: screenWidth } = Dimensions.get('window');
 
