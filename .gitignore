@@ -18,6 +18,9 @@ xcuserdata
 *.moved-aside
 DerivedData
 *.hmap
+.claude/*
+.claude-project/*
+claude.md
 *.ipa
 *.xcuserstate
 **/.xcode.env.local

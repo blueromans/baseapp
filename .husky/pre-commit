@@ -1,0 +1,12 @@
+# Import sıralama lint-staged tarafından yapılacak
+echo "${YELLOW}📋 sort import will update...${NC}"
+
+# lint-staged çalıştır
+echo "${YELLOW}⚡ lint-staged working...${NC}"
+npx lint-staged 2>&1
+if [ $? -ne 0 ]; then
+    echo "${RED}❌ lint-staged error!${NC}"
+    echo "${RED}Error details:${NC}"
+    npx lint-staged
+    exit 1
+fi
