@@ -87,44 +87,44 @@ const Tab3Screen = () => {
 
               <Card variant="elevated" padding={0}>
                 {group.items.map((item, itemIndex) => (
-                  <Block
-                    key={itemIndex}
-                    onPress={item.action}
-                    padding={size(16)}
-                    row
-                    align="center"
-                    justify="space-between"
-                    style={{
-                      borderBottomWidth:
-                        itemIndex < group.items.length - 1 ? 1 : 0,
-                      borderBottomColor: colors.border.default,
-                    }}
-                  >
-                    <Block row align="center" flex={1}>
-                      <Typography variant="h3" marginRight={size(12)}>
-                        {item.icon}
-                      </Typography>
-                      <Typography variant="body1" weight="500">
-                        {item.label}
-                      </Typography>
-                    </Block>
+                  <>
+                    <Block
+                      key={itemIndex}
+                      onPress={item.action}
+                      padding={size(16)}
+                      row
+                      align="center"
+                      justify="space-between"
+                    >
+                      <Block row align="center" flex={1}>
+                        <Typography variant="h3" marginRight={size(12)}>
+                          {item.icon}
+                        </Typography>
+                        <Typography variant="body1" weight="500">
+                          {item.label}
+                        </Typography>
+                      </Block>
 
-                    {item.toggle ? (
-                      <Switch
-                        value={item.value}
-                        onValueChange={item.onChange}
-                        trackColor={{
-                          false: colors.interactive.disabled as string,
-                          true: colors.brand.primary as string,
-                        }}
-                        thumbColor={item.value ? '#FFFFFF' : '#F4F4F4'}
-                      />
-                    ) : (
-                      <Typography variant="h3" color={colors.text.tertiary}>
-                        ›
-                      </Typography>
+                      {item.toggle ? (
+                        <Switch
+                          value={item.value}
+                          onValueChange={item.onChange}
+                          trackColor={{
+                            false: colors.interactive.disabled as string,
+                            true: colors.brand.primary as string,
+                          }}
+                          thumbColor={item.value ? '#FFFFFF' : '#F4F4F4'}
+                        />
+                      ) : (
+                        <Typography variant="h3" color={colors.text.tertiary}>
+                          ›
+                        </Typography>
+                      )}
+                    </Block>
+                    {itemIndex < group.items.length - 1 && (
+                      <Block height={1} color={colors.border.default} />
                     )}
-                  </Block>
+                  </>
                 ))}
               </Card>
             </Block>

@@ -8,7 +8,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <StoreWrapper>
-        <RootNavigator isAuthenticated={true} />
+        <RootNavigator isAuthenticated={false} />
       </StoreWrapper>
     </NavigationContainer>
   );

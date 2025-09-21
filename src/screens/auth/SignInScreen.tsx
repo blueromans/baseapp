@@ -1,6 +1,6 @@
 // React and React Native
 import { useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, StyleSheet } from 'react-native';
 
 // Third Party Libraries
 import { useNavigation } from '@react-navigation/native';
@@ -40,10 +40,7 @@ const SignInScreen = () => {
             color={colors.background.secondary}
           >
             <TextInput
-              style={{
-                fontSize: 16,
-                color: colors.text.primary,
-              }}
+              style={[styles.input, { color: colors.text.primary as string }]}
               placeholder="Enter your email"
               placeholderTextColor={colors.text.secondary}
               value={email}
@@ -66,10 +63,7 @@ const SignInScreen = () => {
             color={colors.background.secondary}
           >
             <TextInput
-              style={{
-                fontSize: 16,
-                color: colors.text.primary,
-              }}
+              style={[styles.input, { color: colors.text.primary as string }]}
               placeholder="Enter your password"
               placeholderTextColor={colors.text.secondary}
               value={password}
@@ -119,5 +113,11 @@ const SignInScreen = () => {
     </Block>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    fontSize: 16,
+  },
+});
 
 export default SignInScreen;

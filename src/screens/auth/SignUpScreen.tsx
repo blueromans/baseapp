@@ -1,6 +1,6 @@
 // React and React Native
 import { useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, StyleSheet } from 'react-native';
 
 // Third Party Libraries
 import { useNavigation } from '@react-navigation/native';
@@ -27,7 +27,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <Block flex={1} padding={size(24)}>
+    <Block flex={1} padding={size(24)} keyboard>
       <Block flex={1}>
         {/* Form */}
         <Block marginTop={size(24)}>
@@ -43,10 +43,7 @@ const SignUpScreen = () => {
               color={colors.background.secondary}
             >
               <TextInput
-                style={{
-                  fontSize: 16,
-                  color: colors.text.primary,
-                }}
+                style={[styles.input, { color: colors.text.primary as string }]}
                 placeholder="Enter your name"
                 placeholderTextColor={colors.text.secondary}
                 value={name}
@@ -68,10 +65,7 @@ const SignUpScreen = () => {
               color={colors.background.secondary}
             >
               <TextInput
-                style={{
-                  fontSize: 16,
-                  color: colors.text.primary,
-                }}
+                style={[styles.input, { color: colors.text.primary as string }]}
                 placeholder="Enter your email"
                 placeholderTextColor={colors.text.secondary}
                 value={email}
@@ -94,10 +88,7 @@ const SignUpScreen = () => {
               color={colors.background.secondary}
             >
               <TextInput
-                style={{
-                  fontSize: 16,
-                  color: colors.text.primary,
-                }}
+                style={[styles.input, { color: colors.text.primary as string }]}
                 placeholder="Create a password"
                 placeholderTextColor={colors.text.secondary}
                 value={password}
@@ -119,10 +110,7 @@ const SignUpScreen = () => {
               color={colors.background.secondary}
             >
               <TextInput
-                style={{
-                  fontSize: 16,
-                  color: colors.text.primary,
-                }}
+                style={[styles.input, { color: colors.text.primary as string }]}
                 placeholder="Confirm your password"
                 placeholderTextColor={colors.text.secondary}
                 value={confirmPassword}
@@ -166,5 +154,11 @@ const SignUpScreen = () => {
     </Block>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    fontSize: 16,
+  },
+});
 
 export default SignUpScreen;

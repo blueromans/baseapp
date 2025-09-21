@@ -99,10 +99,6 @@ const Tab4Screen = () => {
           justify="space-around"
           padding={size(16)}
           color={colors.background.primary}
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: colors.border.default,
-          }}
         >
           {profileStats.map((stat, index) => (
             <Block key={index} align="center">
@@ -115,35 +111,37 @@ const Tab4Screen = () => {
             </Block>
           ))}
         </Block>
+        <Block height={1} color={colors.border.default} />
 
         {/* Menu Items */}
         <Block padding={size(16)}>
           <Card variant="elevated" padding={0}>
             {menuItems.map((item, index) => (
-              <Block
-                key={index}
-                onPress={item.action}
-                padding={size(16)}
-                row
-                align="center"
-                justify="space-between"
-                style={{
-                  borderBottomWidth: index < menuItems.length - 1 ? 1 : 0,
-                  borderBottomColor: colors.border.default,
-                }}
-              >
-                <Block row align="center">
-                  <Typography variant="h3" marginRight={size(12)}>
-                    {item.icon}
-                  </Typography>
-                  <Typography variant="body1" weight="500">
-                    {item.label}
+              <>
+                <Block
+                  key={index}
+                  onPress={item.action}
+                  padding={size(16)}
+                  row
+                  align="center"
+                  justify="space-between"
+                >
+                  <Block row align="center">
+                    <Typography variant="h3" marginRight={size(12)}>
+                      {item.icon}
+                    </Typography>
+                    <Typography variant="body1" weight="500">
+                      {item.label}
+                    </Typography>
+                  </Block>
+                  <Typography variant="h3" color={colors.text.tertiary}>
+                    ›
                   </Typography>
                 </Block>
-                <Typography variant="h3" color={colors.text.tertiary}>
-                  ›
-                </Typography>
-              </Block>
+                {index < menuItems.length - 1 && (
+                  <Block height={1} color={colors.border.default} />
+                )}
+              </>
             ))}
           </Card>
         </Block>
@@ -155,10 +153,6 @@ const Tab4Screen = () => {
               onPress={() => console.log('Share Profile')}
               padding={size(16)}
               center
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: colors.border.default,
-              }}
             >
               <Typography
                 variant="body1"
@@ -168,6 +162,7 @@ const Tab4Screen = () => {
                 Share Profile
               </Typography>
             </Block>
+            <Block height={1} color={colors.border.default} />
             <Block
               onPress={() => console.log('Sign Out')}
               padding={size(16)}
