@@ -1,97 +1,366 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# BaseApp - React Native Starter Template
 
-# Getting Started
+A production-ready React Native boilerplate with authentication, navigation, state management, and modern UI components pre-configured. This boilerplate provides a solid foundation for building scalable React Native applications with best practices and commonly needed features already implemented.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Why Use This Boilerplate?
 
-## Step 1: Start Metro
+This boilerplate saves weeks of development time by providing:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **Pre-built Authentication Flow**: Skip the tedious auth setup with ready-to-use screens
+- **Production-Ready Architecture**: Scalable folder structure following best practices
+- **Modern State Management**: Redux Toolkit setup with persistence out of the box
+- **Type Safety**: Full TypeScript configuration with strict type checking
+- **Performance Optimized**: FlashList, Reanimated, and MMKV for blazing fast performance
+- **Developer Experience**: ESLint, Prettier, and Husky pre-configured
+- **Cross-Platform Ready**: Tested on both iOS and Android devices
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Features
 
-```sh
-# Using npm
+- **Authentication Flow**: Ready-to-use SignIn/SignUp screens with form validation
+- **Navigation**: Tab navigation with nested stack navigators using React Navigation
+- **State Management**: Redux Toolkit with Redux Persist for offline storage
+- **Internationalization**: i18next integration for multi-language support
+- **Storage**: MMKV for high-performance local storage
+- **UI Components**:
+  - Reusable templates (ListTemplate, HeaderTemplate)
+  - Theme support with light/dark mode
+  - Keyboard-aware scroll views
+  - High-performance lists with FlashList
+- **Developer Experience**:
+  - TypeScript configured
+  - ESLint and Prettier setup
+  - Husky git hooks for code quality
+  - Import sorting automation
+
+## Tech Stack
+
+- React Native 0.81.4
+- React Navigation v7
+- Redux Toolkit & Redux Persist
+- React Native Reanimated v4
+- React Native Skia for graphics
+- MMKV for storage
+- i18next for internationalization
+- TypeScript
+
+## What's Included in the Boilerplate
+
+### Pre-built Screens
+
+- **SignIn Screen**: Email/password authentication with validation
+- **SignUp Screen**: User registration with form validation
+- **Tab Screens (4)**: Example screens demonstrating different UI patterns
+  - Tab1: Basic content screen
+  - Tab2: List with pull-to-refresh using FlashList
+  - Tab3: Form inputs and keyboard handling
+  - Tab4: Settings and preferences
+
+### UI Components Library
+
+- **Atoms**: Button, Text, TextInput, Icon, Spacer
+- **Molecules**: Card, Header, ListItem, LoadingIndicator
+- **Templates**: HeaderTemplate, ListTemplate for consistent layouts
+
+### Configured Libraries
+
+- **Navigation**: Tab navigation with nested stacks
+- **State Management**: Redux slices for auth, user, and app state
+- **Storage**: MMKV for encrypted local storage
+- **Animations**: Reanimated for smooth 60fps animations
+- **Graphics**: Skia for advanced graphics rendering
+- **Forms**: Keyboard-aware scroll view for better UX
+- **Lists**: FlashList for high-performance lists
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable UI components
+│   ├── atoms/       # Basic building blocks
+│   ├── molecules/   # Composite components
+│   └── templates/   # Page templates
+├── config/          # App configuration
+│   ├── api.config.ts    # API endpoints
+│   └── app.config.ts    # App settings
+├── constants/       # App constants
+├── hooks/           # Custom React hooks
+│   ├── useTheme.ts      # Theme hook
+│   └── useStorage.ts    # Storage hook
+├── i18n/           # Internationalization
+│   └── locales/         # Translation files
+├── navigation/      # Navigation configuration
+│   ├── navigators/      # Stack, Tab, Auth navigators
+│   └── types.ts         # Navigation types
+├── screens/        # Screen components
+│   ├── auth/       # Authentication screens
+│   └── main/       # Main app screens
+├── services/       # API and external services
+│   └── api/            # API client setup
+├── store/          # Redux store configuration
+│   ├── slices/         # Redux slices
+│   └── index.ts        # Store configuration
+├── themes/         # Theme definitions
+│   ├── colors.ts       # Color palette
+│   ├── fonts.ts        # Typography
+│   └── spacing.ts      # Spacing system
+├── types/          # TypeScript type definitions
+└── utils/          # Utility functions
+    ├── storage.ts      # Storage utilities
+    └── validation.ts   # Form validation
+```
+
+## Quick Start Guide
+
+### Using This Boilerplate
+
+1. **Clone and rename your project:**
+
+```bash
+git clone <repository-url> MyAwesomeApp
+cd MyAwesomeApp
+```
+
+2. **Update project name:**
+
+- Change `name` in `package.json`
+- Update app name in `app.json`
+- For iOS: Update display name in `ios/BaseApp/Info.plist`
+- For Android: Update app name in `android/app/src/main/res/values/strings.xml`
+
+3. **Install and run:**
+
+```bash
+npm install
+cd ios && pod install && cd ..
+npm run ios # or npm run android
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm/yarn
+- Xcode 15+ (for iOS development)
+- Android Studio (for Android development)
+- CocoaPods (for iOS dependencies)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd BaseApp
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Install iOS dependencies (macOS only):
+
+```bash
+cd ios
+bundle install
+bundle exec pod install
+cd ..
+```
+
+## Running the App
+
+### Start Metro Bundler
+
+```bash
 npm start
-
-# OR using Yarn
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
+### Run on iOS
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Run on Android
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```bash
+npm run android
+# or
+yarn android
+```
 
-## Step 3: Modify your app
+## Available Scripts
 
-Now that you have successfully run the app, let's make changes!
+```bash
+npm run start          # Start Metro bundler
+npm run ios           # Run on iOS simulator
+npm run android       # Run on Android emulator
+npm run lint          # Run ESLint
+npm run format        # Format code with Prettier
+npm run test          # Run tests
+npm run sort-imports  # Sort imports in TypeScript files
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Development Workflow
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Adding New Screens
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+1. Create your screen component in `src/screens/`
+2. Add navigation types in `src/navigation/types.ts`
+3. Register screen in appropriate navigator
 
-## Congratulations! :tada:
+### State Management
 
-You've successfully run and modified your React Native App. :partying_face:
+The app uses Redux Toolkit with the following structure:
 
-### Now what?
+- Store configuration in `src/store/`
+- Create slices for different features
+- Use Redux Persist for data persistence
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### Theming
 
-# Troubleshooting
+- Theme definitions in `src/themes/`
+- Light and dark mode support
+- Access theme via `useTheme()` hook
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### Internationalization
 
-# Learn More
+- Translation files in `src/i18n/locales/`
+- Use `useTranslation()` hook for translations
+- Language switching support built-in
 
-To learn more about React Native, take a look at the following resources:
+### Component Architecture
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+The project follows Atomic Design principles:
+
+- **Atoms**: Basic building blocks (Button, Text, Input)
+- **Molecules**: Composite components (Card, ListItem)
+- **Templates**: Page layouts (ListTemplate, HeaderTemplate)
+- **Screens**: Complete application screens
+
+### Boilerplate Scripts
+
+The boilerplate includes helpful scripts in the `scripts/` directory:
+
+- **sort-imports.cjs**: Automatically organizes imports
+- **init.sh**: Initial setup script for new projects
+
+## Code Quality
+
+### Pre-commit Hooks
+
+The project uses Husky to run checks before commits:
+
+- Linting with ESLint
+- Code formatting with Prettier
+- Import sorting
+
+## Troubleshooting
+
+### Common Issues
+
+1. **iOS Build Fails**: Make sure you've run `pod install` in the `ios` directory
+2. **Metro Bundler Issues**: Clear cache with `npx react-native start --reset-cache`
+3. **Android Build Issues**: Clean build with `cd android && ./gradlew clean`
+4. **Module Resolution**: Delete `node_modules` and reinstall
+
+### Development Tips
+
+- Use Fast Refresh for instant updates (enabled by default)
+- Press `R` twice on Android or `Cmd+R` on iOS simulator to reload
+- Use React Native Debugger for advanced debugging
+
+For more detailed troubleshooting, see the [React Native Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Customization Guide
+
+### Changing Theme Colors
+
+Edit `src/themes/colors.ts` to customize your app's color palette:
+
+```typescript
+export const colors = {
+  primary: '#007AFF',
+  secondary: '#5856D6',
+  // Add your custom colors
+};
+```
+
+### Adding New Screens
+
+1. Create screen in `src/screens/your-feature/`
+2. Add to navigation in `src/navigation/navigators/`
+3. Update types in `src/navigation/types.ts`
+
+### Configuring API Endpoints
+
+Update `src/config/api.config.ts`:
+
+```typescript
+export const API_CONFIG = {
+  BASE_URL: 'https://your-api.com',
+  TIMEOUT: 10000,
+};
+```
+
+### Adding Redux Slices
+
+1. Create slice in `src/store/slices/`
+2. Add to root reducer in `src/store/index.ts`
+3. Use with `useSelector` and `useDispatch` hooks
+
+## Performance Optimization Tips
+
+- Use `FlashList` instead of `FlatList` for large lists
+- Implement lazy loading for heavy screens
+- Use `React.memo` for expensive components
+- Enable Hermes for Android (already configured)
+- Use MMKV for storage instead of AsyncStorage
+
+## Resources
+
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [React Navigation](https://reactnavigation.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Native MMKV](https://github.com/mrousavy/react-native-mmkv)
+- [FlashList](https://shopify.github.io/flash-list/)
+- [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/)
+- [React Native Skia](https://shopify.github.io/react-native-skia/)
+
+## Boilerplate Maintenance
+
+This boilerplate is actively maintained. To update to the latest versions:
+
+```bash
+npm update
+cd ios && pod update && cd ..
+```
+
+## Support
+
+For issues and feature requests, please use the GitHub issue tracker.
+
+## Credits
+
+Built with ❤️ using React Native and the amazing open-source community.
