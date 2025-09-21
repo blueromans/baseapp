@@ -3,35 +3,11 @@
  * Configuration options for React Navigation
  */
 
-import { DefaultTheme, DarkTheme, Theme } from '@react-navigation/native';
+import { Config } from '@/config';
+import { size } from '@/utils/helpers/size';
 
-// Light Theme Configuration
-export const LightNavigationTheme: Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#007AFF',
-    background: '#FFFFFF',
-    card: '#F8F8F8',
-    text: '#000000',
-    border: '#E0E0E0',
-    notification: '#FF3B30',
-  },
-};
-
-// Dark Theme Configuration
-export const DarkNavigationTheme: Theme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    primary: '#60A5FA',
-    background: '#111827',
-    card: '#1F2937',
-    text: '#F9FAFB',
-    border: '#374151',
-    notification: '#F87171',
-  },
-};
+// Navigation themes are now handled by useNavigationTheme hook
+// which integrates with the app's theme system
 
 // Navigation Options Configuration
 export const defaultScreenOptions = {
@@ -43,19 +19,20 @@ export const defaultScreenOptions = {
 };
 
 // Tab Bar Options Configuration
-export const defaultTabOptions = {
-  tabBarActiveTintColor: '#007AFF',
-  tabBarInactiveTintColor: '#8E8E93',
+// Colors will be provided at runtime through theme integration
+export const getDefaultTabOptions = (themeColors: any) => ({
+  tabBarActiveTintColor: themeColors.brand.primary,
+  tabBarInactiveTintColor: themeColors.text.tertiary,
   tabBarLabelStyle: {
-    fontSize: 11,
+    fontSize: size(11),
     fontWeight: '500' as const,
   },
   tabBarStyle: {
     borderTopWidth: 0.5,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: themeColors.border.subtle,
   },
   headerShown: false,
-};
+});
 
 // Modal Options Configuration
 export const modalOptions = {
@@ -67,9 +44,13 @@ export const modalOptions = {
   cardOverlayEnabled: true,
 };
 
-// Linking Configuration
+// Linking Configuration - using app config for environment-specific URLs
 export const linkingConfig = {
-  prefixes: ['baseapp://', 'https://baseapp.com', 'https://*.baseapp.com'],
+  prefixes: [
+    `${Config.deepLinking.scheme}://`,
+    ...Config.deepLinking.universalLinks.ios,
+    ...Config.deepLinking.universalLinks.android,
+  ],
   config: {
     screens: {
       Main: {
@@ -98,7 +79,7 @@ export const linkingConfig = {
 export const navigationContainerProps = {
   documentTitle: {
     formatter: (options: any, route: any) =>
-      `${options?.title ?? route?.name} - BaseApp`,
+      `${options?.title ?? route?.name} - ${Config.displayName}`,
   },
   fallback: null,
 };

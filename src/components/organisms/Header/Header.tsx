@@ -3,7 +3,7 @@
  * A reusable header organism with navigation and actions
  */
 
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -13,6 +13,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Block } from '@/components/atoms/Block';
 import { H6, Caption, Link } from '@/components/atoms/Typography/presets';
+import { useThemeColors } from '@/theme/context/ThemeContext';
+import { size } from '@/utils/helpers/size';
 
 export interface IHeaderProps {
   title?: string;
@@ -44,16 +46,18 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
   testID,
 }) => {
   const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
+  const styles = useMemo(() => getStyles(colors), [colors]);
 
   const headerHeight = Platform.select({
-    ios: 44,
-    android: 56,
-    default: 56,
+    ios: size(44),
+    android: size(56),
+    default: size(56),
   });
 
   const getBackgroundColor = () => {
     if (transparent) return 'transparent';
-    return '#FFFFFF';
+    return colors.background.primary;
   };
 
   return (
@@ -77,7 +81,7 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
         align="center"
         justify="space-between"
         flex={1}
-        paddingHorizontal={16}
+        paddingHorizontal={size(16)}
       >
         {/* Left Action */}
         <Block style={styles.actionContainer}>
@@ -85,7 +89,12 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
             <TouchableOpacity
               onPress={leftAction.onPress}
               style={styles.actionButton}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{
+                top: size(10),
+                bottom: size(10),
+                left: size(10),
+                right: size(10),
+              }}
             >
               {leftAction.icon ? (
                 leftAction.icon
@@ -103,7 +112,7 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
           <Block flex={1} align="center">
             {title && <H6 numberOfLines={1}>{title}</H6>}
             {subtitle && (
-              <Caption numberOfLines={1} marginTop={2}>
+              <Caption numberOfLines={1} marginTop={size(2)}>
                 {subtitle}
               </Caption>
             )}
@@ -116,7 +125,12 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
             <TouchableOpacity
               onPress={rightAction.onPress}
               style={styles.actionButton}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{
+                top: size(10),
+                bottom: size(10),
+                left: size(10),
+                right: size(10),
+              }}
             >
               {rightAction.icon ? (
                 rightAction.icon
@@ -131,17 +145,18 @@ const HeaderComponent: React.FC<IHeaderProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
-  },
-  actionContainer: {
-    minWidth: 60,
-  },
-  actionButton: {
-    padding: 8,
-  },
-});
+const getStyles = (colors: ReturnType<typeof useThemeColors>) =>
+  StyleSheet.create({
+    container: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.border.subtle,
+    },
+    actionContainer: {
+      minWidth: size(60),
+    },
+    actionButton: {
+      padding: size(8),
+    },
+  });
 
 export const Header = memo(HeaderComponent);

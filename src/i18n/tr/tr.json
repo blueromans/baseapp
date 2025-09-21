@@ -1,5 +1,18 @@
 {
   "welcome": {
     "getStarted": "Başlayın"
+  },
+  "search": {
+    "placeholder": "Ara...",
+    "cancel": "İptal",
+    "clearAccessibility": "Aramayı temizle"
+  },
+  "common": {
+    "noItems": "Gösterilecek öğe yok",
+    "outOfStock": "Stokta Yok",
+    "pullToRefresh": "Yenilemek için aşağı çekin"
+  },
+  "product": {
+    "noProducts": "Ürün bulunamadı"
   }
 }

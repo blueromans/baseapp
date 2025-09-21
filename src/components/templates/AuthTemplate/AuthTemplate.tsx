@@ -11,8 +11,10 @@ import {
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useThemeColors } from '@/theme/context/ThemeContext';
 
 import { Block, Header } from '@/components';
+import { size } from '@/utils/helpers/size';
 
 export interface IAuthTemplateProps {
   children: React.ReactNode;
@@ -32,12 +34,14 @@ const AuthTemplateComponent: React.FC<IAuthTemplateProps> = ({
   headerSubtitle,
   showBackButton = false,
   onBackPress,
-  backgroundColor = '#FFFFFF',
-  contentPadding = 24,
+  backgroundColor,
+  contentPadding = size(24),
   scrollable = true,
   testID,
 }) => {
   const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
+  const bgColor = backgroundColor || colors.background.primary;
 
   const content = (
     <Block flex={1} padding={contentPadding}>
@@ -46,7 +50,7 @@ const AuthTemplateComponent: React.FC<IAuthTemplateProps> = ({
   );
 
   return (
-    <Block flex={1} color={backgroundColor} testID={testID}>
+    <Block flex={1} color={bgColor} testID={testID}>
       {/* Header */}
       {(headerTitle || showBackButton) && (
         <Header
@@ -67,14 +71,14 @@ const AuthTemplateComponent: React.FC<IAuthTemplateProps> = ({
       <KeyboardAvoidingView
         style={styles.keyboardAvoid}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : size(20)}
       >
         {scrollable ? (
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={[
               styles.scrollContent,
-              { paddingBottom: insets.bottom + 20 },
+              { paddingBottom: insets.bottom + size(20) },
             ]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"

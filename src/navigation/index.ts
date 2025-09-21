@@ -37,12 +37,12 @@ export {
   usePreventNavigation,
 } from './hooks';
 
+export { useNavigationTheme } from './useNavigationTheme';
+
 // Configuration
 export {
-  LightNavigationTheme,
-  DarkNavigationTheme,
   defaultScreenOptions,
-  defaultTabOptions,
+  getDefaultTabOptions,
   modalOptions,
   linkingConfig,
   navigationContainerProps,

@@ -28,7 +28,7 @@ export const useBlockStyles = (
     const { shadow, card, outlined, borderColor, safe, style } = props;
 
     // Get base styles
-    const baseStyles = buildBlockStyles(props, colors, sizes);
+    const baseStyles = buildBlockStyles(props);
 
     // Resolve background color
     const backgroundColor = resolveBlockColor(props, colors);

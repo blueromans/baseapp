@@ -7,6 +7,7 @@ import React, { memo, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Block } from '@/components/atoms/Block';
 import { H5, Subtitle } from '@/components/atoms/Typography/presets';
+import { size } from '@/utils/helpers/size';
 
 export interface ICardProps {
   title?: string;
@@ -25,8 +26,8 @@ const CardComponent: React.FC<ICardProps> = ({
   children,
   onPress,
   variant = 'default',
-  padding = 16,
-  margin = 8,
+  padding = size(16),
+  margin = size(8),
   testID,
 }) => {
   const getVariantProps = useCallback(() => {
@@ -45,16 +46,16 @@ const CardComponent: React.FC<ICardProps> = ({
       {...getVariantProps()}
       padding={padding}
       margin={margin}
-      radius={12}
+      radius={size(12)}
       testID={testID}
     >
       {title && (
-        <H5 numberOfLines={1} marginBottom={4}>
+        <H5 numberOfLines={1} marginBottom={size(4)}>
           {title}
         </H5>
       )}
       {subtitle && (
-        <Subtitle numberOfLines={2} marginBottom={8}>
+        <Subtitle numberOfLines={2} marginBottom={size(8)}>
           {subtitle}
         </Subtitle>
       )}

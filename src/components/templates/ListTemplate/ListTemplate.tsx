@@ -5,8 +5,11 @@
 
 import React, { memo, useState, useCallback } from 'react';
 import { StyleSheet, RefreshControl, FlatList } from 'react-native';
+import { useThemeColors } from '@/theme/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 import { Block, Header, SearchBar, TabBar, Body, ITabItem } from '@/components';
+import { size } from '@/utils';
 
 export interface IListTemplateProps<T> {
   headerTitle?: string;
@@ -48,6 +51,8 @@ function ListTemplateComponent<T>({
   testID,
 }: IListTemplateProps<T>) {
   const [searchQuery, setSearchQuery] = useState('');
+  const colors = useThemeColors();
+  const { t } = useTranslation();
 
   const handleSearch = useCallback(
     (query: string) => {
@@ -115,9 +120,9 @@ function ListTemplateComponent<T>({
         onEndReachedThreshold={0.5}
         ListEmptyComponent={
           ListEmptyComponent || (
-            <Block flex={1} center padding={32}>
-              <Body color="#999" align="center">
-                No items to display
+            <Block flex={1} center padding={size(32)}>
+              <Body color={colors.text.tertiary} align="center">
+                {t('common.noItems')}
               </Body>
             </Block>
           )

@@ -30,3 +30,6 @@ export {
   InfoText,
   Link,
 } from './Typography/presets';
+
+export { default as FlatList } from './FlatList';
+export type { CustomFlatListProps } from './FlatList';

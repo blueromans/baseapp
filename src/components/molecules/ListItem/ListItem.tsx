@@ -3,10 +3,11 @@
  * A flexible list item molecule for various list presentations
  */
 
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
-import { Block } from '@/components/atoms/Block';
-import { Body, Caption } from '@/components/atoms/Typography/presets';
+import { Block, Body, Caption } from '@/components';
+import { size } from '@/utils/helpers/size';
+import { useThemeColors } from '@/theme';
 
 export interface IListItemProps {
   title: string;
@@ -33,18 +34,20 @@ const ListItemComponent: React.FC<IListItemProps> = ({
   divider = true,
   testID,
 }) => {
+  const colors = useThemeColors();
+  const styles = useMemo(() => getStyles(colors), [colors]);
   const content = (
     <Block
       row
       align="center"
-      paddingHorizontal={16}
-      paddingVertical={12}
-      color={selected ? '#F0F8FF' : 'transparent'}
+      paddingHorizontal={size(16)}
+      paddingVertical={size(12)}
+      color={selected ? colors.background.elevated : 'transparent'}
       testID={testID}
     >
       {/* Left Section */}
       {(leftIcon || imageSource) && (
-        <Block marginRight={12}>
+        <Block marginRight={size(12)}>
           {imageSource ? (
             <Image source={imageSource} style={styles.image} />
           ) : (
@@ -57,16 +60,22 @@ const ListItemComponent: React.FC<IListItemProps> = ({
       <Block flex={1}>
         <Body
           weight={selected ? '600' : '500'}
-          color={disabled ? '#999' : selected ? '#007AFF' : '#000'}
+          color={
+            disabled
+              ? colors.text.disabled
+              : selected
+              ? colors.brand.primary
+              : colors.text.primary
+          }
           numberOfLines={1}
         >
           {title}
         </Body>
         {subtitle && (
           <Caption
-            color={disabled ? '#999' : '#666'}
+            color={disabled ? colors.text.disabled : colors.text.secondary}
             numberOfLines={2}
-            marginTop={2}
+            marginTop={size(2)}
           >
             {subtitle}
           </Caption>
@@ -74,7 +83,7 @@ const ListItemComponent: React.FC<IListItemProps> = ({
       </Block>
 
       {/* Right Section */}
-      {rightIcon && <Block marginLeft={12}>{rightIcon}</Block>}
+      {rightIcon && <Block marginLeft={size(12)}>{rightIcon}</Block>}
     </Block>
   );
 
@@ -100,17 +109,18 @@ const ListItemComponent: React.FC<IListItemProps> = ({
   return <View>{itemContent}</View>;
 };
 
-const styles = StyleSheet.create({
-  image: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#E0E0E0',
-    marginLeft: 16,
-  },
-});
+const getStyles = (colors: ReturnType<typeof useThemeColors>) =>
+  StyleSheet.create({
+    image: {
+      width: size(40),
+      height: size(40),
+      borderRadius: size(20),
+    },
+    divider: {
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: colors.border.subtle,
+      marginLeft: size(16),
+    },
+  });
 
 export const ListItem = memo(ListItemComponent);

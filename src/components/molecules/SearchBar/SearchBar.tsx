@@ -3,7 +3,7 @@
  * A customizable search input molecule
  */
 
-import React, { memo, useCallback, useState, useRef } from 'react';
+import React, { memo, useCallback, useState, useRef, useMemo } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -11,8 +11,17 @@ import {
   Platform,
   TextInputProps,
 } from 'react-native';
-import { Block } from '@/components/atoms/Block';
-import { Label, Link } from '@/components/atoms/Typography/presets';
+import { Block, Label, Link } from '@/components';
+import { useThemeColors } from '@/theme/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import { size, fontSize } from '@/utils/helpers/size';
+
+// Icon constants
+const ICONS = {
+  SEARCH: '🔍',
+  CLEAR: '✕',
+  LOADING: '⏳',
+} as const;
 
 export interface ISearchBarProps extends Omit<TextInputProps, 'onChangeText'> {
   value?: string;
@@ -31,7 +40,7 @@ const SearchBarComponent: React.FC<ISearchBarProps> = ({
   onChangeText,
   onSearch,
   onClear,
-  placeholder = 'Search...',
+  placeholder,
   showCancelButton = false,
   autoFocus = false,
   loading = false,
@@ -40,6 +49,8 @@ const SearchBarComponent: React.FC<ISearchBarProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
+  const colors = useThemeColors();
+  const { t } = useTranslation();
 
   const handleClear = useCallback(() => {
     onChangeText?.('');
@@ -57,19 +68,26 @@ const SearchBarComponent: React.FC<ISearchBarProps> = ({
     onSearch?.(value);
   }, [onSearch, value]);
 
+  const styles = useMemo(() => getStyles(colors), [colors]);
+
   return (
-    <Block row align="center" paddingHorizontal={16} paddingVertical={8}>
+    <Block
+      row
+      align="center"
+      paddingHorizontal={size(16)}
+      paddingVertical={size(8)}
+    >
       <Block
         flex={1}
         row
         align="center"
-        padding={Platform.OS === 'ios' ? 8 : 4}
-        radius={8}
-        color="#F0F0F0"
+        padding={Platform.OS === 'ios' ? size(8) : size(4)}
+        radius={size(8)}
+        color={colors.background.secondary}
         style={isFocused ? styles.focused : undefined}
       >
         {/* Search Icon */}
-        <Label style={styles.searchIcon}>🔍</Label>
+        <Label style={styles.searchIcon}>{ICONS.SEARCH}</Label>
 
         {/* Input */}
         <TextInput
@@ -77,8 +95,8 @@ const SearchBarComponent: React.FC<ISearchBarProps> = ({
           style={styles.input}
           value={value}
           onChangeText={onChangeText}
-          placeholder={placeholder}
-          placeholderTextColor="#999"
+          placeholder={placeholder || t('search.placeholder')}
+          placeholderTextColor={colors.text.tertiary}
           autoFocus={autoFocus}
           returnKeyType="search"
           onSubmitEditing={handleSubmit}
@@ -90,49 +108,55 @@ const SearchBarComponent: React.FC<ISearchBarProps> = ({
 
         {/* Clear Button */}
         {value.length > 0 && (
-          <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
-            <Label color="#999" size={18}>
-              ✕
+          <TouchableOpacity
+            onPress={handleClear}
+            style={styles.clearButton}
+            accessibilityLabel={t('search.clearAccessibility')}
+            accessibilityRole="button"
+          >
+            <Label color={colors.text.tertiary} size={18}>
+              {ICONS.CLEAR}
             </Label>
           </TouchableOpacity>
         )}
 
         {/* Loading Indicator */}
-        {loading && <Label marginHorizontal={8}>⏳</Label>}
+        {loading && <Label marginHorizontal={size(8)}>{ICONS.LOADING}</Label>}
       </Block>
 
       {/* Cancel Button */}
       {showCancelButton && isFocused && (
         <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
-          <Link>Cancel</Link>
+          <Link>{t('search.cancel')}</Link>
         </TouchableOpacity>
       )}
     </Block>
   );
 };
 
-const styles = StyleSheet.create({
-  focused: {
-    borderWidth: 1,
-    borderColor: '#007AFF',
-  },
-  searchIcon: {
-    marginHorizontal: 8,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: '#000',
-    padding: 0,
-    height: 36,
-  },
-  clearButton: {
-    padding: 4,
-    marginRight: 4,
-  },
-  cancelButton: {
-    marginLeft: 12,
-  },
-});
+const getStyles = (colors: ReturnType<typeof useThemeColors>) =>
+  StyleSheet.create({
+    focused: {
+      borderWidth: size(1),
+      borderColor: colors.border.focus,
+    },
+    searchIcon: {
+      marginHorizontal: size(8),
+    },
+    input: {
+      flex: 1,
+      fontSize: fontSize(16),
+      color: colors.text.primary,
+      padding: 0,
+      height: size(36),
+    },
+    clearButton: {
+      padding: size(4),
+      marginRight: size(4),
+    },
+    cancelButton: {
+      marginLeft: size(12),
+    },
+  });
 
 export const SearchBar = memo(SearchBarComponent);

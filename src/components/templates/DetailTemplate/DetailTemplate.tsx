@@ -3,7 +3,7 @@
  * A template for detail/content screens with hero images and actions
  */
 
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -12,8 +12,10 @@ import {
   Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useThemeColors } from '@/theme/context/ThemeContext';
 
 import { Block, Header, H2, Body, ButtonText } from '@/components';
+import { size } from '@/utils/helpers/size';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -45,17 +47,19 @@ const DetailTemplateComponent: React.FC<IDetailTemplateProps> = ({
   headerTitle,
   headerTransparent = false,
   heroImage,
-  heroHeight = 300,
+  heroHeight = size(300),
   title,
   subtitle,
   actions = [],
   showBackButton = true,
   onBackPress,
   rightAction,
-  contentPadding = 16,
+  contentPadding = size(16),
   testID,
 }) => {
   const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
+  const styles = useMemo(() => getStyles(colors), [colors]);
 
   return (
     <Block flex={1} testID={testID}>
@@ -93,10 +97,10 @@ const DetailTemplateComponent: React.FC<IDetailTemplateProps> = ({
         <Block padding={contentPadding}>
           {/* Title Section */}
           {(title || subtitle) && (
-            <Block marginBottom={16}>
-              {title && <H2 marginBottom={8}>{title}</H2>}
+            <Block marginBottom={size(16)}>
+              {title && <H2 marginBottom={size(8)}>{title}</H2>}
               {subtitle && (
-                <Body color="#666" lineHeight={22}>
+                <Body color={colors.text.secondary} lineHeight={size(22)}>
                   {subtitle}
                 </Body>
               )}
@@ -105,7 +109,7 @@ const DetailTemplateComponent: React.FC<IDetailTemplateProps> = ({
 
           {/* Actions */}
           {actions.length > 0 && (
-            <Block row gap={12} marginBottom={24}>
+            <Block row gap={size(12)} marginBottom={size(24)}>
               {actions.map((action, index) => (
                 <TouchableOpacity
                   key={index}
@@ -121,7 +125,9 @@ const DetailTemplateComponent: React.FC<IDetailTemplateProps> = ({
                 >
                   <ButtonText
                     color={
-                      action.variant === 'secondary' ? '#007AFF' : '#FFFFFF'
+                      action.variant === 'secondary'
+                        ? colors.brand.primary
+                        : colors.text.inverse
                     }
                   >
                     {action.label}
@@ -135,34 +141,35 @@ const DetailTemplateComponent: React.FC<IDetailTemplateProps> = ({
           {children}
 
           {/* Bottom Padding for Safe Area */}
-          <Block height={insets.bottom + 20} />
+          <Block height={insets.bottom + size(20)} />
         </Block>
       </ScrollView>
     </Block>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  heroImage: {
-    width: screenWidth,
-  },
-  actionButton: {
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  primaryButton: {
-    backgroundColor: '#007AFF',
-  },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#007AFF',
-  },
-});
+const getStyles = (colors: ReturnType<typeof useThemeColors>) =>
+  StyleSheet.create({
+    scrollView: {
+      flex: 1,
+    },
+    heroImage: {
+      width: screenWidth,
+    },
+    actionButton: {
+      paddingVertical: size(14),
+      paddingHorizontal: size(20),
+      borderRadius: size(8),
+      alignItems: 'center',
+    },
+    primaryButton: {
+      backgroundColor: colors.brand.primary,
+    },
+    secondaryButton: {
+      backgroundColor: 'transparent',
+      borderWidth: size(1),
+      borderColor: colors.brand.primary,
+    },
+  });
 
 export const DetailTemplate = memo(DetailTemplateComponent);

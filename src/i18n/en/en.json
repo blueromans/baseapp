@@ -1,5 +1,18 @@
 {
   "welcome": {
     "getStarted": "Get Started"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "cancel": "Cancel",
+    "clearAccessibility": "Clear search"
+  },
+  "common": {
+    "noItems": "No items to display",
+    "outOfStock": "Out of Stock",
+    "pullToRefresh": "Pull down to refresh"
+  },
+  "product": {
+    "noProducts": "No products available"
   }
 }

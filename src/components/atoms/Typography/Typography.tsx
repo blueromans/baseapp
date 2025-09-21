@@ -7,6 +7,7 @@ import React, { memo, useMemo } from 'react';
 import { Text, TextStyle, StyleSheet } from 'react-native';
 import { useTheme } from '@/theme';
 import { ITypographyProps } from './Typography.types';
+import { fontSize } from '@/utils';
 
 const TypographyComponent: React.FC<ITypographyProps> = ({
   children,
@@ -77,7 +78,7 @@ const TypographyComponent: React.FC<ITypographyProps> = ({
 
     // Custom size
     if (size) {
-      styles.push({ fontSize: size });
+      styles.push({ fontSize: fontSize(size) });
     }
 
     // Font weight
