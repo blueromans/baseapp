@@ -24,7 +24,7 @@ let initialLanguage = 'en';
 // Try to get stored language safely at startup
 try {
   // We import storage here to avoid circular dependency
-  const { storage } = require('../redux/storage');
+  const { storage } = require('../utils/helpers/storage');
   const storedLanguage = storage.getString('app_language');
   if (storedLanguage && ['en', 'tr'].includes(storedLanguage)) {
     initialLanguage = storedLanguage;
@@ -50,7 +50,7 @@ i18n.use(initReactI18next).init({
 
 // Store the initial language if it wasn't already stored
 try {
-  const { storage } = require('../redux/storage');
+  const { storage } = require('../utils/helpers/storage');
   if (!storage.getString('app_language')) {
     storage.set('app_language', initialLanguage);
   }

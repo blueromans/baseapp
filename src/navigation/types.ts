@@ -21,8 +21,9 @@ export type RootStackParamList = {
 // Main Tab Navigator Types
 export type MainTabParamList = {
   Home: undefined;
-  Profile: undefined;
+  Dashboard: undefined;
   Settings: undefined;
+  Profile: undefined;
 };
 
 // Auth Stack Navigator Types

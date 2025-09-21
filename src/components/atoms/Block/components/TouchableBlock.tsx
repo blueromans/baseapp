@@ -1,6 +1,6 @@
 // React and React Native
 import React, { ReactNode } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface TouchableBlockProps {
   children: ReactNode;
@@ -12,8 +12,8 @@ export const TouchableBlock: React.FC<TouchableBlockProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       {children}
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };

@@ -24,7 +24,8 @@ export const useBlockStyles = (
   insets: any,
 ): BlockComputedStyles => {
   return useMemo(() => {
-    const { colors, sizes } = theme;
+    const colors = theme?.colors;
+    const sizes = theme?.sizes;
     const { shadow, card, outlined, borderColor, safe, style } = props;
 
     // Get base styles

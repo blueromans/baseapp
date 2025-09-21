@@ -2,6 +2,9 @@
 export { default as NavigationContainer } from './Container';
 export { default as StoreWrapper } from './Wrapper';
 
+// Navigators
+export { RootNavigator, AuthNavigator, TabNavigator } from './navigators';
+
 // Types
 export type {
   RootStackParamList,

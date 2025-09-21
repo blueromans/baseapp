@@ -1,16 +1,17 @@
 // Local Components and Hooks
 import './i18n';
-import { NavigationContainer, StoreWrapper } from './navigation';
+import { NavigationContainer, StoreWrapper, RootNavigator } from './navigation';
 
-const ApplicationNavigator = () => null;
+const App = () => {
+  // TODO: Replace with actual auth state from your store/context
 
-// Main component
-const App = () => (
-  <NavigationContainer>
-    <StoreWrapper>
-      <ApplicationNavigator />
-    </StoreWrapper>
-  </NavigationContainer>
-);
+  return (
+    <NavigationContainer>
+      <StoreWrapper>
+        <RootNavigator isAuthenticated={true} />
+      </StoreWrapper>
+    </NavigationContainer>
+  );
+};
 
 export default App;

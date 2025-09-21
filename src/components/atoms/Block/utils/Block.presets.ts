@@ -37,20 +37,20 @@ export const applyShadowStyles = (
 
   if (typeof shadow === 'string' && shadow in shadowMap) {
     return {
-      shadowColor: colors.shadow || '#000',
+      shadowColor: colors?.shadow || '#000',
       ...shadowMap[shadow as keyof typeof shadowMap],
     };
   }
 
   // Default shadow for boolean true
   return {
-    shadowColor: colors.shadow,
+    shadowColor: colors?.shadow || '#000',
     shadowOffset: {
-      width: sizes.shadowOffsetWidth || 0,
-      height: sizes.shadowOffsetHeight || 4,
+      width: sizes?.shadowOffsetWidth || 0,
+      height: sizes?.shadowOffsetHeight || 4,
     },
-    shadowOpacity: sizes.shadowOpacity || 0.25,
-    shadowRadius: sizes.shadowRadius || 3.84,
+    shadowOpacity: sizes?.shadowOpacity || 0.25,
+    shadowRadius: sizes?.shadowRadius || 3.84,
     elevation: 5,
   };
 };
@@ -65,9 +65,9 @@ export const applyCardStyles = (
   if (!card) return {};
 
   return {
-    backgroundColor: backgroundColor || colors.card,
-    borderRadius: sizes.cardRadius,
-    padding: sizes.cardPadding,
+    backgroundColor: backgroundColor || colors?.card || '#FFFFFF',
+    borderRadius: sizes?.cardRadius || 8,
+    padding: sizes?.cardPadding || 16,
     ...(shadow !== false &&
       shadow !== 'none' &&
       applyShadowStyles(shadow || 'md', colors, sizes)),
@@ -84,7 +84,8 @@ export const applyOutlinedStyles = (
 
   return {
     borderWidth: 1,
-    borderColor: customBorderColor || backgroundColor || colors.gray,
+    borderColor:
+      customBorderColor || backgroundColor || colors?.gray || '#E0E0E0',
     backgroundColor: 'transparent',
   };
 };
