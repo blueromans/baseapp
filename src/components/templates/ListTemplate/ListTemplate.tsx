@@ -4,11 +4,19 @@
  */
 
 import React, { memo, useState, useCallback } from 'react';
-import { StyleSheet, RefreshControl, FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useThemeColors } from '@/theme/context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
-import { Block, Header, SearchBar, TabBar, Body, ITabItem } from '@/components';
+import {
+  Block,
+  Header,
+  SearchBar,
+  TabBar,
+  Body,
+  ITabItem,
+  FlatList,
+} from '@/components';
 import { size } from '@/utils';
 
 export interface IListTemplateProps<T> {
@@ -111,11 +119,8 @@ function ListTemplateComponent<T>({
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
-        refreshControl={
-          onRefresh ? (
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          ) : undefined
-        }
+        refreshing={refreshing}
+        onRefresh={onRefresh}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         ListEmptyComponent={
