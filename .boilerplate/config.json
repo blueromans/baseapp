@@ -1,0 +1,61 @@
+{
+  "name": "React Native Base App Boilerplate",
+  "version": "1.0.0",
+  "description": "Production-ready React Native boilerplate with TypeScript, Redux Toolkit, Navigation, and more",
+  "template_variables": {
+    "PROJECT_NAME": "base-app",
+    "PROJECT_DISPLAY_NAME": "Base App",
+    "BUNDLE_ID_IOS": "com.example.baseapp",
+    "BUNDLE_ID_ANDROID": "com.example.baseapp",
+    "PACKAGE_NAME": "com.example.baseapp"
+  },
+  "features": {
+    "typescript": true,
+    "redux": true,
+    "navigation": true,
+    "i18n": true,
+    "theming": true,
+    "authentication": true,
+    "api": true,
+    "storage": true,
+    "testing": true,
+    "linting": true
+  },
+  "dependencies": {
+    "core": [
+      "@react-navigation/bottom-tabs",
+      "@react-navigation/native",
+      "@react-navigation/native-stack",
+      "@react-navigation/stack",
+      "@reduxjs/toolkit",
+      "@shopify/flash-list",
+      "i18next",
+      "react-i18next",
+      "react-native-gesture-handler",
+      "react-native-mmkv",
+      "react-native-reanimated",
+      "react-native-safe-area-context",
+      "react-native-screens",
+      "react-redux",
+      "redux-persist"
+    ],
+    "optional": {
+      "animations": ["@shopify/react-native-skia", "react-native-worklets"],
+      "ui": ["react-native-svg", "react-native-keyboard-aware-scroll-view"]
+    }
+  },
+  "structure": {
+    "src": {
+      "components": ["atoms", "molecules", "organisms", "templates"],
+      "screens": ["auth", "main"],
+      "navigation": true,
+      "store": ["api", "auth"],
+      "theme": ["themes", "tokens", "types", "utils"],
+      "i18n": ["en", "tr"],
+      "utils": ["helpers"],
+      "types": true,
+      "constants": true,
+      "config": true
+    }
+  }
+}
