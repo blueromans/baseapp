@@ -10,7 +10,6 @@ export {
 
 // Legacy support - maintains backward compatibility
 export { ThemeProvider as default } from './context/ThemeContext';
-export { useLegacyTheme } from './migration/useLegacyTheme';
 
 // For apps using the old path
 export { useTheme as useThemeHook } from './context/ThemeContext';

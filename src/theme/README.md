@@ -17,6 +17,7 @@ theme/
 ## 🎨 Features
 
 ### 1. **Semantic Design Tokens**
+
 - **Colors**: Background, text, brand, status, interactive, border, surface
 - **Spacing**: Scale (0-24) + semantic (xs-3xl)
 - **Typography**: Variants (h1-h6, body, button, etc.)
@@ -24,17 +25,20 @@ theme/
 - **Border Radii**: Consistent corner radius system
 
 ### 2. **Performance Optimized**
+
 - Context with refs to minimize re-renders
 - Memoized theme computations
 - Granular hooks for specific properties
 - Lazy theme switching
 
 ### 3. **Type Safety**
+
 - Full TypeScript coverage
 - Strict type definitions
 - IntelliSense support
 
 ### 4. **Responsive Design**
+
 - Breakpoint system (xs, sm, md, lg, xl, 2xl)
 - Responsive value hooks
 - Device detection utilities
@@ -42,6 +46,7 @@ theme/
 ## 🚀 Usage
 
 ### Basic Theme Access
+
 ```tsx
 import { useTheme } from '@/theme';
 
@@ -50,15 +55,14 @@ const Component = () => {
 
   return (
     <View style={{ backgroundColor: theme.colors.background.primary }}>
-      <Text style={{ color: theme.colors.text.primary }}>
-        Hello World
-      </Text>
+      <Text style={{ color: theme.colors.text.primary }}>Hello World</Text>
     </View>
   );
 };
 ```
 
 ### Optimized Property Access
+
 ```tsx
 import { useThemeColors, useThemeSpacing } from '@/theme';
 
@@ -67,10 +71,12 @@ const Component = () => {
   const spacing = useThemeSpacing();
 
   return (
-    <View style={{
-      backgroundColor: colors.surface.card,
-      padding: spacing.semantic.md
-    }}>
+    <View
+      style={{
+        backgroundColor: colors.surface.card,
+        padding: spacing.semantic.md,
+      }}
+    >
       {/* content */}
     </View>
   );
@@ -78,6 +84,7 @@ const Component = () => {
 ```
 
 ### Responsive Values
+
 ```tsx
 import { useResponsive } from '@/theme';
 
@@ -87,7 +94,7 @@ const Component = () => {
     sm: 12,
     md: 16,
     lg: 24,
-    xl: 32
+    xl: 32,
   });
 
   return <View style={{ padding }} />;
@@ -95,6 +102,7 @@ const Component = () => {
 ```
 
 ### Themed Styles
+
 ```tsx
 import { useThemeStyles } from '@/theme';
 
@@ -104,12 +112,12 @@ const Component = () => {
       backgroundColor: theme.colors.background.primary,
       padding: theme.spacing.semantic.lg,
       borderRadius: theme.borderRadii.lg,
-      ...theme.shadows.md
+      ...theme.shadows.md,
     },
     text: {
       ...theme.typography.variants.h3,
-      color: theme.colors.text.primary
-    }
+      color: theme.colors.text.primary,
+    },
   }));
 
   return (
@@ -121,6 +129,7 @@ const Component = () => {
 ```
 
 ### Color Manipulation
+
 ```tsx
 import { withOpacity, lighten, darken } from '@/theme';
 
@@ -138,14 +147,11 @@ const Component = () => {
 ## 🔄 Migration from Old System
 
 ### For Existing Components
+
 ```tsx
 // Old way
 import { useTheme } from '@/theme';
 const { colors, sizes } = useTheme();
-
-// Migration path - use legacy hook
-import { useLegacyTheme } from '@/theme';
-const { colors, sizes } = useLegacyTheme();
 
 // New way (recommended)
 import { useTheme } from '@/theme';
@@ -156,6 +162,7 @@ const { theme } = useTheme();
 ## 📝 Theme Structure
 
 ### Colors
+
 ```typescript
 colors: {
   background: { primary, secondary, tertiary, elevated, overlay },
@@ -171,6 +178,7 @@ colors: {
 ```
 
 ### Spacing
+
 ```typescript
 spacing: {
   scale: { 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24 },
@@ -181,6 +189,7 @@ spacing: {
 ```
 
 ### Typography
+
 ```typescript
 typography: {
   fontFamilies: { regular, medium, semibold, bold, ... },
@@ -195,9 +204,8 @@ typography: {
 ## ⚠️ Important Notes
 
 1. **Performance**: Use specific hooks (useThemeColors, useThemeSpacing) instead of full useTheme when possible
-2. **Migration**: The old theme structure is still accessible via useLegacyTheme() for gradual migration
-3. **TypeScript**: All theme properties are fully typed - use IntelliSense for discovery
-4. **Customization**: Themes can be extended by modifying files in `/themes/`
+2. **TypeScript**: All theme properties are fully typed - use IntelliSense for discovery
+3. **Customization**: Themes can be extended by modifying files in `/themes/`
 
 ## 🔧 Maintenance
 

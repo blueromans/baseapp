@@ -15,8 +15,5 @@ export {
   useThemeTypography,
 } from '../context/ThemeContext';
 
-// For backward compatibility with old ITheme interface
-export { useLegacyTheme } from '../migration/useLegacyTheme';
-
 // Re-export types
 export type { ThemeContextValue, ThemeMode } from '../types';
