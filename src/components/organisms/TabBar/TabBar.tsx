@@ -11,103 +11,78 @@ import { Caption, Overline } from '@/components/atoms/Typography/presets';
 import { useThemeColors } from '@/theme/context/ThemeContext';
 import { size } from '@/utils/helpers/size';
 
-export interface ITabItem {
-  key: string;
-  label: string;
-  icon?: React.ReactNode;
-  badge?: number | string;
-}
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-export interface ITabBarProps {
-  tabs: ITabItem[];
-  activeTab: string;
-  onTabPress: (tabKey: string) => void;
-  variant?: 'default' | 'floating' | 'minimal';
-  showLabel?: boolean;
-  testID?: string;
-}
-
-const TabBarComponent: React.FC<ITabBarProps> = ({
-  tabs,
-  activeTab,
-  onTabPress,
-  variant = 'default',
-  showLabel = true,
-  testID,
+const TabBarComponent: React.FC<BottomTabBarProps> = ({
+  state,
+  navigation,
 }) => {
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
   const styles = useMemo(() => getStyles(colors), [colors]);
 
-  const handleTabPress = useCallback(
-    (tabKey: string) => {
-      onTabPress(tabKey);
-    },
-    [onTabPress],
-  );
-
   const getContainerStyle = useCallback(() => {
-    switch (variant) {
-      case 'floating':
-        return {
-          margin: size(16),
-          marginBottom: insets.bottom + size(16),
-          borderRadius: size(24),
-          backgroundColor: colors.surface.card,
-          ...styles.floatingShadow,
-        };
-      case 'minimal':
-        return {
-          backgroundColor: 'transparent',
-          borderTopWidth: 0,
-        };
-      default:
-        return {
-          backgroundColor: colors.background.primary,
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: colors.border.subtle,
-        };
-    }
-  }, [variant, insets.bottom, colors, styles.floatingShadow]);
+    return {
+      backgroundColor: colors.background.primary,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: colors.border.subtle,
+    };
+  }, [colors]);
 
   const renderTab = useCallback(
-    (tab: ITabItem) => {
-      const isActive = activeTab === tab.key;
+    (route: any) => {
+      const isFocused = state.index === route.index;
+      const onPress = () => {
+        const event = navigation.emit({
+          type: 'tabPress',
+          target: route.key,
+          canPreventDefault: true,
+        });
+
+        if (!isFocused && !event.defaultPrevented) {
+          navigation.navigate(route.name, route.params);
+        }
+      };
+
+      const onLongPress = () => {
+        navigation.emit({
+          type: 'tabLongPress',
+          target: route.key,
+        });
+      };
 
       return (
         <TouchableOpacity
-          key={tab.key}
+          key={route.key}
           style={styles.tab}
-          onPress={() => handleTabPress(tab.key)}
+          onPress={onPress}
+          onLongPress={onLongPress}
           activeOpacity={0.7}
         >
           {/* Icon */}
-          {tab.icon && (
+          {route.icon && (
             <Block
               style={
-                isActive
+                isFocused
                   ? [styles.iconContainer, styles.activeIcon]
                   : styles.iconContainer
               }
             >
-              {tab.icon}
+              {route.icon}
             </Block>
           )}
 
-          {/* Label */}
-          {showLabel && (
-            <Caption
-              size={!tab.icon ? 14 : 11}
-              color={isActive ? colors.brand.primary : colors.text.tertiary}
-              weight={isActive ? '600' : '400'}
-              numberOfLines={1}
-            >
-              {tab.label}
-            </Caption>
-          )}
+          <Caption
+            size={!route.icon ? 14 : 11}
+            color={isFocused ? colors.brand.primary : colors.text.tertiary}
+            weight={isFocused ? '600' : '400'}
+            numberOfLines={1}
+          >
+            {route.label}
+          </Caption>
 
           {/* Badge */}
-          {tab.badge && (
+          {route.badge && (
             <Block
               position="absolute"
               top={0}
@@ -118,9 +93,9 @@ const TabBarComponent: React.FC<ITabBarProps> = ({
               color={colors.status.error}
             >
               <Overline color={colors.text.inverse} size={10} weight="600">
-                {typeof tab.badge === 'number' && tab.badge > 99
+                {typeof route.badge === 'number' && route.badge > 99
                   ? '99+'
-                  : String(tab.badge)}
+                  : String(route.badge)}
               </Overline>
             </Block>
           )}
@@ -128,16 +103,15 @@ const TabBarComponent: React.FC<ITabBarProps> = ({
       );
     },
     [
-      activeTab,
-      showLabel,
-      handleTabPress,
-      colors.brand.primary,
-      colors.text.tertiary,
-      colors.status.error,
-      colors.text.inverse,
+      state.index,
       styles.tab,
       styles.iconContainer,
       styles.activeIcon,
+      colors.brand.primary,
+      colors.text.tertiary,
+      colors.text.inverse,
+      colors.status.error,
+      navigation,
     ],
   );
 
@@ -148,9 +122,8 @@ const TabBarComponent: React.FC<ITabBarProps> = ({
       align="center"
       paddingBottom={insets.bottom}
       style={[styles.container, getContainerStyle()]}
-      testID={testID}
     >
-      {tabs.map(renderTab)}
+      {state.routes.map(renderTab)}
     </Block>
   );
 };

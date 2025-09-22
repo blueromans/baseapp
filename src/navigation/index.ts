@@ -1,9 +1,9 @@
 // Components
-export { default as NavigationContainer } from './Container';
+export { default as Container } from './Container';
 export { default as StoreWrapper } from './Wrapper';
 
 // Navigators
-export { RootNavigator, AuthNavigator, TabNavigator } from './navigators';
+export { RootNavigator, TabNavigator } from './navigators';
 
 // Types
 export type {
@@ -13,17 +13,6 @@ export type {
   RootStackScreenProps,
   MainTabScreenProps,
   AuthStackScreenProps,
-  NavigationState,
-  RouteConfig,
-  LinkingConfig,
-  HomeScreenProps,
-  ProfileScreenProps,
-  SettingsScreenProps,
-  SignInScreenProps,
-  SignUpScreenProps,
-  ForgotPasswordScreenProps,
-  ResetPasswordScreenProps,
-  VerifyEmailScreenProps,
 } from './types';
 
 // Hooks

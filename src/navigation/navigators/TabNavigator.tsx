@@ -1,26 +1,34 @@
 // React and React Native
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // Third Party Libraries
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 // Components and Hooks
+import { TabBar } from '@/components';
+import { TabRoute, useTabRoutes } from '@/hooks';
 import { useThemeColors } from '@/theme';
 
 // Local Components and Hooks
-import { MainTabParamList } from '../types';
+import { screenNames } from '../types';
 import { getDefaultTabOptions } from '../config';
 
-// Assets
-import { Tab1Screen, Tab2Screen, Tab3Screen, Tab4Screen } from '@/screens';
+const Tab = createBottomTabNavigator();
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
-
-const TabNavigator = () => {
+// Main Component
+function TabNavigator() {
   const colors = useThemeColors();
+  const tabRoutes = useTabRoutes();
+
+  const TabBarComponent = useCallback(
+    (props: BottomTabBarProps) => <TabBar {...props} />,
+    [],
+  );
 
   return (
     <Tab.Navigator
+      tabBar={TabBarComponent}
       screenOptions={{
         ...getDefaultTabOptions(colors),
         headerShown: true,
@@ -30,42 +38,16 @@ const TabNavigator = () => {
         headerTintColor: colors.text.primary as string,
         headerShadowVisible: false,
       }}
-      initialRouteName="Home"
     >
-      <Tab.Screen
-        name="Home"
-        component={Tab1Screen}
-        options={{
-          title: 'Home',
-          tabBarLabel: 'Home',
-        }}
-      />
-      <Tab.Screen
-        name="Dashboard"
-        component={Tab2Screen}
-        options={{
-          title: 'Dashboard',
-          tabBarLabel: 'Dashboard',
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Tab3Screen}
-        options={{
-          title: 'Settings',
-          tabBarLabel: 'Settings',
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Tab4Screen}
-        options={{
-          title: 'Profile',
-          tabBarLabel: 'Profile',
-        }}
-      />
+      {tabRoutes?.map((screen: TabRoute) => (
+        <Tab.Screen
+          key={screen?.name}
+          name={screen?.name}
+          component={screenNames?.[screen?.name as keyof typeof screenNames]}
+        />
+      ))}
     </Tab.Navigator>
   );
-};
+}
 
 export default TabNavigator;

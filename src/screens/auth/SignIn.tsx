@@ -1,5 +1,5 @@
 // React and React Native
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 
 // Third Party Libraries
@@ -10,7 +10,7 @@ import { Block, Typography } from '@/components';
 import { useThemeColors } from '@/theme';
 import { size } from '@/utils';
 
-const SignInScreen = () => {
+const SignIn: React.FC = React.memo(() => {
   const colors = useThemeColors();
   const navigation = useNavigation<any>();
   const [email, setEmail] = useState('');
@@ -112,7 +112,7 @@ const SignInScreen = () => {
       </Block>
     </Block>
   );
-};
+});
 
 const styles = StyleSheet.create({
   input: {
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInScreen;
+export default SignIn;

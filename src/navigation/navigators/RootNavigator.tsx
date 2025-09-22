@@ -5,44 +5,38 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Components and Hooks
+import { useMainRoutes } from '@/hooks';
+import type { RootStackParamList } from '@/constants';
+
 // Local Components and Hooks
-import { RootStackParamList } from '../types';
-import TabNavigator from './TabNavigator';
-import AuthNavigator from './AuthNavigator';
-import { useNavigationTheme } from '../useNavigationTheme';
+import { screenNames, type RouteItem } from '../types';
+import useNavigationTheme from '../useNavigationTheme';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-interface RootNavigatorProps {
-  isAuthenticated?: boolean;
-}
-
-const RootNavigator: React.FC<RootNavigatorProps> = ({
-  isAuthenticated = true,
-}) => {
+// Main Component
+const RootNavigator: React.FC = React.memo(() => {
+  const mainRoutes = useMainRoutes() as RouteItem[];
   const theme = useNavigationTheme();
-
   return (
     <NavigationContainer theme={theme}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {!isAuthenticated ? (
-          <Stack.Screen
-            name="Auth"
-            component={AuthNavigator}
-            options={{
-              animationTypeForReplace: !isAuthenticated ? 'pop' : 'push',
-            }}
-          />
-        ) : (
-          <Stack.Screen name="Main" component={TabNavigator} />
-        )}
-      </Stack.Navigator>
+      <RootStack.Navigator>
+        {mainRoutes?.map((screen, index) => (
+          <RootStack.Group key={index} screenOptions={screen.options}>
+            {screen.routes?.map((route, _index) => (
+              <RootStack.Screen
+                key={_index}
+                name={route.name}
+                component={screenNames[route.name]}
+                options={route.options}
+              />
+            ))}
+          </RootStack.Group>
+        ))}
+      </RootStack.Navigator>
     </NavigationContainer>
   );
-};
+});
 
 export default RootNavigator;

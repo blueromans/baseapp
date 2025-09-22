@@ -8,33 +8,16 @@ export {
   APP,
   DIMENSIONS,
   TIMING,
-  LIMITS,
   REGEX,
-  DATE_FORMATS,
-  ERROR_MESSAGES,
-  SUCCESS_MESSAGES,
-  PLATFORM,
-  SOCIAL,
-  PERMISSIONS_TEXT,
+  IS_IOS,
+  IS_ANDROID,
 } from './app.constants';
 
 // Navigation constants
-export {
-  STACKS,
-  SCREENS,
-  TAB_ICONS,
-  NAVIGATION_OPTIONS,
-  DEEP_LINK_PATHS,
-  NAVIGATION_EVENTS,
-} from './navigation.constants';
 export type { RootStackParamList } from './navigation.constants';
 
 // Storage constants
-export {
-  STORAGE_KEYS,
-  STORAGE_EXPIRY,
-  STORAGE_LIMITS,
-  CLEAR_PATTERNS,
-  getStorageKeyWithExpiry,
-  isValidStorageKey,
-} from './storage.constants';
+export { STORAGE_KEYS } from './storage.constants';
+
+// Device constants
+export { SCREEN_HEIGHT, SCREEN_WIDTH } from './device.constants';

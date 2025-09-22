@@ -1,5 +1,5 @@
 // React and React Native
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 // Components and Hooks
 import { ListTemplate, Card, ListItem, SearchBar } from '@/components';
@@ -10,7 +10,7 @@ interface ListItemData {
   description: string;
 }
 
-const Tab1Screen = () => {
+const Home: React.FC = React.memo(() => {
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -67,6 +67,6 @@ const Tab1Screen = () => {
       emptyIcon="📭"
     />
   );
-};
+});
 
-export default Tab1Screen;
+export default Home;

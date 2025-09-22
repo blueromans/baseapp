@@ -1,4 +1,5 @@
 // React and React Native
+import React from 'react';
 import { ScrollView } from 'react-native';
 
 // Components and Hooks
@@ -6,7 +7,7 @@ import { DetailTemplate, Block, Typography, Card } from '@/components';
 import { useThemeColors } from '@/theme';
 import { size } from '@/utils/helpers/size';
 
-const Tab2Screen = () => {
+const Profile: React.FC = React.memo(() => {
   const colors = useThemeColors();
 
   const stats = [
@@ -112,6 +113,6 @@ const Tab2Screen = () => {
       </ScrollView>
     </DetailTemplate>
   );
-};
+});
 
-export default Tab2Screen;
+export default Profile;

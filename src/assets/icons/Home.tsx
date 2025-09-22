@@ -1,0 +1,27 @@
+// React and React Native
+import * as React from 'react';
+
+// Third Party Libraries
+import Svg, { Path } from 'react-native-svg';
+
+// Components and Hooks
+import { useTheme } from '@/theme';
+
+interface Props {
+  size?: number;
+  color?: string;
+}
+
+function Home({ size = 24, color }: Props) {
+  const { colors } = useTheme();
+  return (
+    <Svg width={size} height={size} viewBox="0 0 25 24" fill="none">
+      <Path
+        d="M15.7081 16.885H9.89311C9.47911 16.885 9.14311 16.549 9.14311 16.135C9.14311 15.721 9.47911 15.385 9.89311 15.385H15.7081C16.1221 15.385 16.4581 15.721 16.4581 16.135C16.4581 16.549 16.1221 16.885 15.7081 16.885ZM20.0491 6.158C19.6861 5.838 19.2731 5.476 18.7811 5.021C18.5581 4.841 18.3141 4.635 18.0551 4.417C16.5951 3.186 14.5951 1.5 12.7721 1.5C10.9701 1.5 9.09911 3.092 7.59611 4.371C7.31811 4.607 7.05811 4.829 6.79311 5.044C6.32711 5.476 5.91411 5.839 5.55011 6.16C3.16311 8.261 2.71411 8.812 2.71411 13.713C2.71411 22.5 5.25511 22.5 12.8001 22.5C20.3441 22.5 22.8861 22.5 22.8861 13.713C22.8861 8.811 22.4371 8.26 20.0491 6.158Z"
+        fill={color || colors.primary}
+      />
+    </Svg>
+  );
+}
+
+export default Home;

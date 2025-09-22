@@ -1,5 +1,8 @@
 // React and React Native
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
+
+// Components and Hooks
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@/constants';
 
 export type ResponsiveSizesType = {
   /*
@@ -43,9 +46,6 @@ export type ResponsiveSizesType = {
     right: number;
   };
 };
-
-export const SCREEN_WIDTH = Dimensions.get('screen').width;
-export const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
 export const size = (size_: number): number => {
   const multiplier = 2.2;

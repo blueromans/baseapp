@@ -8,17 +8,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Components and Hooks
 import { ThemeProvider } from '@/theme';
-
-// Assets
 import { storage } from '@/utils';
 
 interface NavigationContainerProps {
   children: React.ReactNode;
 }
 
-const NavigationContainer: React.FC<NavigationContainerProps> = ({
-  children,
-}) => {
+const Container: React.FC<NavigationContainerProps> = ({ children }) => {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={styles.flex}>
@@ -34,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(NavigationContainer);
+export default memo(Container);
