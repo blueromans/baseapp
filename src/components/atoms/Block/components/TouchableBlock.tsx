@@ -12,7 +12,7 @@ export const TouchableBlock: React.FC<TouchableBlockProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
       {children}
     </TouchableOpacity>
   );
