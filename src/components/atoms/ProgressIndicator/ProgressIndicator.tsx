@@ -29,6 +29,9 @@ import {
   strokeHeadTween,
   strokeTailTween,
 } from './constant';
+
+// Fallback value in case of import issues
+const CIRCULAR_DURATION = K_INTERMEDIATE_CIRCULAR_DURATION || 1333 * 2222;
 import { rad2deg, type OrPlainValueProp } from './utils';
 import {
   useDuration,
@@ -146,7 +149,7 @@ function Content({
       () => stopped.value || value.value !== undefined,
       [stopped, value],
     ),
-    timing: K_INTERMEDIATE_CIRCULAR_DURATION,
+    timing: CIRCULAR_DURATION,
   });
 
   const headValue = useDerivedValue(() =>
